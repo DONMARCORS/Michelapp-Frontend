@@ -1,0 +1,17 @@
+import Link from 'next/link';
+
+const ErrorPage = () => {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-4xl font-bold mb-4">404</h1>
+      <p className="text-lg mb-4">Pagina no encontrada.</p>
+      <div className="text-blue-500 hover:text-blue-700">
+      <Link href="/">
+        Volver al inicio
+      </Link>
+      </div>
+    </div>
+  );
+};
+
+export default ErrorPage;

@@ -40,7 +40,6 @@ class FastAPIClient {
 
     fetchUser() {
         return this.apiClient.get('/auth/me').then(({ data }) => {
-            localStorage.setItem('user', JSON.stringify(data));
             return data;
         });
     }
@@ -137,6 +136,28 @@ class FastAPIClient {
             return data;
         });
     }
+
+    getVendedores() { // Dummy data
+        return [{
+            id: 1,
+            first_name: 'Vendedor 1',
+            email: 'vendor1@email.com'
+        },
+        {
+            id: 2,
+            first_name: 'Vendedor 2',
+            email: 'vendor2@email.com'
+        },
+        {
+            id: 3,
+            first_name: 'Vendedor 3',
+            email: 'myemail@email.com'
+
+        },
+
+        ]
+    }
+
 }
 
 

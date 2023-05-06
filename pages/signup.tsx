@@ -1,23 +1,55 @@
-import { Metadata } from "next"
-import Image from "next/image"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 import Link from "next/link"
-import { Command } from "lucide-react"
+import { Command, Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { UserSignupForm } from "@/components/auth/user-signup-form"
+import { UserSignupForm } from "@/components/auth/userSignupForm"
 
-export const metadata: Metadata = {
-  title: "Authentication",
-  description: "Authentication forms built using the components.",
-}
+import FastAPIClient from "@/client/client"
+import IUser from "@/types/IUser"
 
-export default function AuthenticationPage() {
+export default function SignUp() {
+  const client = new FastAPIClient({});
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+
+  const fetchUser = async () => {
+
+    setLoading(true);
+
+    try {
+      const user = await client.fetchUser() as IUser;
+      if (user) {
+        router.push("/user");
+      }
+      setLoading(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoading(false);
+    }
+    
+    
+
+  }
+
   return (
     <>
-      <div className="md:hidden">
-        
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Please wait
+        </div>
+      ) : (
       <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           href="/login"
@@ -79,6 +111,7 @@ export default function AuthenticationPage() {
           </div>
         </div>
       </div>
+      )}
     </>
   )
 }
