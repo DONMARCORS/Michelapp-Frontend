@@ -1,7 +1,8 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Command, Loader2 } from "lucide-react"
+import { Command } from "lucide-react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -9,13 +10,15 @@ import { UserAuthForm } from "@/components/auth/userLoginForm"
 
 import FastAPIClient from "@/client/client";
 import IUser from "@/types/IUser";
+import Head from "next/head"
 
 
 export default function Login() {
 
   const client = new FastAPIClient({});
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [content, showContent] = useState<boolean>(false);
+  const [redirecting, setRedirecting] = useState<boolean>(false);
 
   useEffect(() => {
     fetchUser();
@@ -24,40 +27,33 @@ export default function Login() {
 
   const fetchUser = async () => {
 
-    setLoading(true);
-
     try {
       const user = await client.fetchUser() as IUser;
       if (user) {
-        router.push("/user");
+        router.push("/perfil");
+        setRedirecting(true);
       }
-      setLoading(false);
+
     }
     catch (error) {
       console.log(error);
     }
     finally {
-      setLoading(false);
+      showContent(true);
     }
-    
-    
-
   }
 
   return (
-    <div>
-      {loading ? (
-        <div className="flex justify-center items-center h-screen">
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Please wait
-        </div>
-      ) : (
-
+    <>
+      <Head>
+        <title>Login</title>
+        <meta name="description" content="Michelapp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {content && !redirecting ? (
         <>
-          <div className="md:hidden">
-
-          </div>
-          <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+          
+          <div className="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <Link
               href="/signup"
               className={cn(
@@ -68,13 +64,15 @@ export default function Login() {
               Registrarse
             </Link>
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-              <div
-                className="absolute inset-0 bg-cover"
-                style={{
-                  backgroundImage:
-                    "url(photoLogin.jpg)",
-                }}
-              />
+              <div className="absolute inset-0">
+                {/* Update the style property */}
+                <Image
+                  src="/photoLogin.jpg"
+                  alt="background image"
+                  layout="fill"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
               <div className="relative z-20 flex items-center text-lg font-medium">
                 <Command className="mr-2 h-6 w-6" /> Michelapp
               </div>
@@ -87,9 +85,9 @@ export default function Login() {
                 </blockquote>
               </div>
             </div>
-            <div className="lg:p-8">
+            <div className="lg:p-6">
               <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-                <div className="flex flex-col space-y-2 text-center">
+                <div className="flex flex-col space-y-2 text-center  mt-10">
                   <h1 className="text-2xl font-semibold tracking-tight">
                     Bienvenido a Michelapp
                   </h1>
@@ -102,8 +100,9 @@ export default function Login() {
               </div>
             </div>
           </div>
-        </>)
-        }
-    </div>
+
+        </>
+      ) : (null)}
+    </>
   )
 }

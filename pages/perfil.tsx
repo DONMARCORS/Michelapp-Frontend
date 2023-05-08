@@ -1,8 +1,9 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import LayoutAuthenticated from "../components/LayoutAuthenticated"
+import LayoutAuthenticated from "../components/layout/layoutAuthenticated"
 import FastAPIClient from "@/client/client"
 import IUser from "@/types/IUser"
+import Head from "next/head"
 
 export default function User() {
   const [profile, setProfile] = useState<IUser>()
@@ -33,12 +34,20 @@ export default function User() {
   }
 
   return (
-    <LayoutAuthenticated>
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-gray-800">Welcome {profile?.first_name}</h1>
+    <>
+      <Head>
+        <title>Perfil</title>
+        <meta name="description" content="Michelapp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <LayoutAuthenticated>
+        <div className="flex flex-col items-center justify-center w-screen h-screen">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold text-white">Welcome {profile?.first_name}</h1>
+          </div>
         </div>
-      </div>
-    </LayoutAuthenticated>
+      </LayoutAuthenticated>
+    </>
   )
 }

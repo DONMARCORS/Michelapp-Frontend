@@ -43,7 +43,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       if (res) {
         console.log("redirecting...")
         setIsLoading(false)
-        router.push("/user")
+        router.push("/perfil")
 
       }
     }
