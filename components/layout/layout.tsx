@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
 
     return (
         <>
-            <Navbar />
+            <Navbar className = "sticky top-0 z-10"/>
             <main className="h-screen "
             >{children}
             </main>
