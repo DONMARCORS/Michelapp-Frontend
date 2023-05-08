@@ -35,11 +35,11 @@ const Ordenes = () => {
       <LayoutAuthenticated>
         <div className="py-10 w-screen h-screen">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-2xl font-bold mb-8 text-white">Tus Ordenes</h1>
+            <h1 className="text-2xl font-bold mb-8">Tus Ordenes</h1>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {loading && <p className="text-white">Cargando...</p>}
+              {loading && <p >Cargando...</p>}
               {!loading && orders.length === 0 && (
-                <p className="text-white">No se encontraron órdenes.</p>
+                <p >No se encontraron órdenes.</p>
               )}
               {orders.map((order) => (
                 <OrderCard key={order.id} order={order} />

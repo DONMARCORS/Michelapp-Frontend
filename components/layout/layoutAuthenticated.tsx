@@ -64,7 +64,7 @@ const LayoutAuthenticated = ({ children }: LayoutProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200">
+                    <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-950">
 
                         {children}
                     </div>

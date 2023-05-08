@@ -44,7 +44,7 @@ export default function User() {
       <LayoutAuthenticated>
         <div className="flex flex-col items-center justify-center w-screen h-screen">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold text-white">Welcome {profile?.first_name}</h1>
+            <h1 className="text-4xl font-bold">Welcome {profile?.first_name}</h1>
           </div>
         </div>
       </LayoutAuthenticated>
