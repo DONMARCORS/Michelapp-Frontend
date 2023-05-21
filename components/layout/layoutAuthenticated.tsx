@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import FastAPIClient from "@/client/client";
 
 import Footer from "./footer/footer";
-import { Loader2 } from "lucide-react";
 import IUser from "@/types/IUser";
 import { NavbarAuthenticated } from "./navbar/navbarAuth";
 import { UserAvatar } from "./navbar/userAvatar";
+import { Icons } from "@/components/icons";
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -43,37 +43,34 @@ const LayoutAuthenticated = ({ children }: LayoutProps) => {
 
             {loading ? (
                 <div className="flex justify-center items-center h-screen bg-gray-200 w-screen">
-                    <Loader2 size={64}
-                        stroke="#ff8c00"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="animate-spin"
-                    />
+                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+
                 </div>
             ) : (
                 <main>
 
-                    <div className="border-b bg-white">
-                        <div className="flex h-16 items-center px-4">
+                    <div className="flex h-16 items-center border-b bg-white px-4">
 
-                            <NavbarAuthenticated privilege={profile!.privilege} currentPage={currentPage} />
+                        <NavbarAuthenticated privilege={profile!.privilege} currentPage={currentPage} />
 
-                            <div className="ml-auto flex items-center space-x-4">
-                                <UserAvatar username={profile!.first_name} email={profile!.email} />
-                            </div>
+                        <div className="ml-auto flex items-center space-x-4">
+                            <UserAvatar username={profile!.first_name} email={profile!.email} />
                         </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-950">
 
+                    <div className="flex flex-col min-h-screen lg:w-screen  bg-gray-200 text-gray-950 pt-5 pb-4">
                         {children}
                     </div>
-                    <Footer />
+
+
                 </main>
+
 
             )}
 
-
+            <div className="border-t bg-white">
+                <Footer />
+            </div>
         </>
     );
 };

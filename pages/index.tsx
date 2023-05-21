@@ -2,11 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Loader2 } from 'lucide-react';
 
 import Layout from '@/components/layout/layout'
 import FastAPIClient from "@/client/client";
 import IUser from "@/types/IUser";
+import { Icons } from '@/components/icons';
 
 
 // Page content, accessible to all users. We wrap in layout component to add navbar and footer
@@ -49,14 +49,8 @@ export default function Home() {
 
       {loading && ( // While loading (fetching user) we show a loading spinner
         <div className="flex justify-center items-center h-screen  bg-gray-200 w-screen">
-          <Loader2
-            size={64}
-            stroke="#ff8c00"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="animate-spin"
-          />
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          
         </div>
       )}
 

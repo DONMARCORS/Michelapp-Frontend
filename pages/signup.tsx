@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import Head from 'next/head'
 import Image from "next/image"
-import { Command, Loader2 } from "lucide-react"
+import { Command} from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -49,7 +49,7 @@ export default function SignUp() {
       </Head>
 
       {content && !redirecting ? (
-        <div className="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 ">
+        <div className="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 w-screen">
           <Link
             href="/login"
             className={cn(

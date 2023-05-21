@@ -80,31 +80,25 @@ class FastAPIClient {
 
     /* ----- API Operations ORDERS ----- */
 
-    // 1 - Get all orders
+    // 1 - Get all orders used by admin and vendedor
     getAllOrders() {
         return this.apiClient.get(`/order/all`);
     }
 
-    // 2 - Get order by id
-    getOrderByOrderId(orderId) {
-        return this.apiClient.get(`/order/all/${orderId}`);
-    }
 
-    // 3 - Get all orders by user id
+    // 3 - Get all orders belonging to user
     getOwnOrders() {
         return this.apiClient.get(`/order`).then(({ data }) => {
             return data;
         });
     }
 
-    // 4 - Get all orders by user id
-    updateOrder(orderId, status) {
+    // 4 - Update order
+    updateOrder(orderId, values) {
         const orderData = {
-            id : orderId,
-            status
+            ...values
         };
-        
-        return this.apiClient.put(`/order`, orderData).then(
+        return this.apiClient.put(`/order/${orderId}`, orderData).then(
             (resp) => {
                 return resp.data;
             });

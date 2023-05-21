@@ -6,12 +6,9 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Head from 'next/head'
 
-
-import { Loader2 } from "lucide-react"; // Spinner
-
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
 import FastAPIClient from "@/client/client"
-
+import { Icons } from '@/components/icons';
 
 const Admin = () => {
     const router = useRouter(); // router is used to redirect the user
@@ -50,13 +47,7 @@ const Admin = () => {
                 {loading && // if loading is true, we show a spinner
                     ( 
                         <div className="flex justify-center items-center h-screen bg-gray-400 w-screen">
-                            <Loader2 size={64}
-                                stroke="#ff8c00"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="animate-spin"
-                            />
+                            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         </div>
 
                     )}

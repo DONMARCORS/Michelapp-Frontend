@@ -14,21 +14,28 @@ export function NavbarAuthenticated({
     ...props
 }: NavbarProps) {
     const adminLinks = [
-        { href: '/admin', label: 'Admin' },
-        { href: '/ordenes', label: 'Ordenes' },
-        { href: '/reportes-venta', label: 'Reportes de Venta' },
+        { href: '/vendedores/all', label: 'Vendedores' },
+        { href: '/clientes/all', label: 'Clientes' },
+        { href: '/pedidos/all', label: 'Pedidos' },
+        { href: '/reportes-venta', label: 'Reportes' },
+        { href: '/productos/all', label: 'Productos' },
+
+
+
     ];
 
     const vendedorLinks = [
-        { href: '/clientes', label: 'Clientes' },
-        { href: '/reportes-venta', label: 'Reportes de Venta' },
-        { href: '/pedidos', label: 'Pedidos' },
+        { href: '/clientes/all', label: 'Clientes' },
+        { href: '/pedidos/all', label: 'Pedidos' },
+        { href: '/reportes-venta', label: 'Reportes' },
+        { href: '/productos/all', label: 'Productos' },
+
+
     ];
 
     const clienteLinks = [
         { href: '/productos', label: 'Ordenar Ahora' },
         { href: '/pedidos', label: 'Mis Pedidos' },
-        { href: '/perfil', label: 'Mi Perfil' },
     ];
 
     let links: { href: string; label: string; }[] = [];

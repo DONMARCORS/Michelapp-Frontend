@@ -1,4 +1,5 @@
 import IOrderItem from "./IOrderItem";
+import IUser from "./IUser";
 
 interface IOrder {
     status: string;
@@ -6,6 +7,7 @@ interface IOrder {
     id: number;
     order_items: IOrderItem[];
     created_at: string;
+    owner:  IUser;
 }
 
 export default IOrder;
