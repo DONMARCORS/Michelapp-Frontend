@@ -18,7 +18,7 @@ const Admin = () => {
 
     useEffect(() => { // useEffect is called when the component is mounted (when the page is loaded)
         getVendedores(); // getVendedores is called to fetch the data
-    });
+    }, []);
 
     const getVendedores = async () => {
         try {

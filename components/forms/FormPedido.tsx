@@ -81,7 +81,7 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order }) => {
   useEffect(() => {
     form.setValue("status", order.status)
     form.setValue("username", "ejemplo")
-  })
+  }, [])
 
   return (
     <>

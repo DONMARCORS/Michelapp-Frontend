@@ -17,7 +17,7 @@ const Pedidos = () => {
 
   useEffect(() => {
     fetchOrders();
-  });
+  }, []);
 
   const fetchOrders = async () => {
     try {
