@@ -4,7 +4,6 @@
 
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import Head from 'next/head'
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
 import FastAPIClient from "@/client/client"
@@ -12,13 +11,14 @@ import { Icons } from '@/components/icons';
 
 const Admin = () => {
     const router = useRouter(); // router is used to redirect the user
+    
     const [vendedores, setVendedores] = useState(null); // useState creates a state variable that will be used to store the data fetched from the API and a function to update the state variable
     const [loading, setLoading] = useState(true);
     const client = new FastAPIClient({}); // client is used to make requests to the API
 
     useEffect(() => { // useEffect is called when the component is mounted (when the page is loaded)
         getVendedores(); // getVendedores is called to fetch the data
-    }, []);
+    });
 
     const getVendedores = async () => {
         try {
@@ -28,7 +28,7 @@ const Admin = () => {
 
         } catch (error) { // backend returns error if user isnt authenticated or isnt admin, so we redirect the user to the login page
             console.log(error);
-            router.push("/perfil");  // redirect user to perfil page
+            await router.push("/perfil");  // redirect user to perfil page
 
         } finally { // finally is called after the try or catch block
             setLoading(false); // setLoading is used to show a spinner while the data is being fetched
@@ -37,13 +37,8 @@ const Admin = () => {
 
     return (
         <>
-            <Head>
-                <title>Admin</title>
-                <meta name="description" content="Michelapp" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <LayoutAuthenticated>
+            
+            <LayoutAuthenticated title="Admin">
                 {loading && // if loading is true, we show a spinner
                     ( 
                         <div className="flex justify-center items-center h-screen bg-gray-400 w-screen">

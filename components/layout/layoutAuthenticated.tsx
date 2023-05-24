@@ -8,12 +8,14 @@ import IUser from "@/types/IUser";
 import { NavbarAuthenticated } from "./navbar/navbarAuth";
 import { UserAvatar } from "./navbar/userAvatar";
 import { Icons } from "@/components/icons";
+import Head from "next/head";
 
 interface LayoutProps {
     children: React.ReactNode;
+    title: string;
 }
 
-const LayoutAuthenticated = ({ children }: LayoutProps) => {
+const LayoutAuthenticated = ({ children, title }: LayoutProps) => {
     const [profile, setProfile] = useState<IUser>()
     const [loading, setLoading] = useState(true)
     const router = useRouter()
@@ -40,6 +42,11 @@ const LayoutAuthenticated = ({ children }: LayoutProps) => {
 
     return (
         <>
+            <Head>
+                <title>{title}</title>
+                <meta name="description" content="Michelapp" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
             {loading ? (
                 <div className="flex justify-center items-center h-screen bg-gray-200 w-screen">
@@ -58,7 +65,7 @@ const LayoutAuthenticated = ({ children }: LayoutProps) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col min-h-screen lg:w-screen  bg-gray-200 text-gray-950 pt-5 pb-4">
+                    <div className="flex flex-col min-h-screen w-screen  bg-gray-200 text-gray-950 pt-5 pb-4">
                         {children}
                     </div>
 

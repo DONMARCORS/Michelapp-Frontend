@@ -17,7 +17,7 @@ export default function Home() {
   const [showContent, setShowContent] = useState<boolean>(false); // new state
 
   useEffect(() => {
-    fetchUser();
+    fetchUser()
   }, []);
 
   const fetchUser = async () => { // We will redirect user to /perfil if user is logged in

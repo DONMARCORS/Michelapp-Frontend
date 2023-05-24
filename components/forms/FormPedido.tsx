@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useRouter } from "next/router"
@@ -31,10 +31,13 @@ import { Badge } from "../ui/badge";
 import { CalendarDays } from "lucide-react";
 
 import FastAPIClient from "@/client/client"
+import { Input } from "../ui/input"
 
+
+// Validaciones del formulario
 const formSchema = z.object({
   status: z.string().min(1).max(255),
-
+  username: z.any().optional(),
 })
 
 
@@ -42,7 +45,7 @@ interface FormPedidoProps extends React.HTMLAttributes<HTMLDivElement> {
   order: IOrder
 }
 
-const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) => {
+const FormPedido: React.FC<FormPedidoProps> = ({ className, order }) => {
 
   const router = useRouter()
   const client = new FastAPIClient({})
@@ -75,26 +78,32 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
     }
   }
 
+  useEffect(() => {
+    form.setValue("status", order.status)
+    form.setValue("username", "ejemplo")
+  })
+
   return (
     <>
-
-
       <Card className={className}>
+
         <CardHeader className="flex justify-between">
+
+
           <Button className="ml-auto" variant="destructive" onClick={deleteOrder}>
             Eliminar Orden
           </Button>
 
           <div className="flex">
-
             <CardTitle>Orden   #{order.id}</CardTitle>
             <div className="flex ml-5">
               <Badge>
                 {order.status}
               </Badge>
             </div>
-
           </div>
+
+
           <CardDescription className="text-gray-500 flex items-start pt-2">
             <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
             <span className="text-xs text-muted-foreground">
@@ -107,8 +116,9 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
               })}
             </span>
           </CardDescription>
-        </CardHeader>
 
+
+        </CardHeader>
 
 
         <CardContent>
@@ -120,7 +130,6 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
             </div>
           ))}
 
-
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
@@ -129,7 +138,7 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange}>
                       <FormControl >
                         <SelectTrigger>
                           <SelectValue placeholder={order.status} />
@@ -141,7 +150,9 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
                         <SelectItem value="proceso">proceso</SelectItem>
                         <SelectItem value="enviado">enviado</SelectItem>
                         <SelectItem value="entregado">entregado</SelectItem>
-                        <SelectItem value="cancelado">cancelado</SelectItem>
+                        <SelectItem value="cancelado"
+                          defaultChecked={true}
+                        >cancelado</SelectItem>
 
                       </SelectContent>
                     </Select>
@@ -153,7 +164,10 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
                 )}
               />
 
-              {/* Otro ejemplo de input https://ui.shadcn.com/docs/forms/react-hook-form: 
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
@@ -163,34 +177,30 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order, ...props }) =
                       This is your public display name.
                     </FormDescription>
                     <FormMessage />
-                 </FormItem> */}
+                  </FormItem>
+                )}
+              />
 
               <div className="flex justify-start">
                 <Button type="submit">Guardar</Button>
                 <Button variant="secondary" className="ml-10" type="reset" onClick={() => router.back()}>
                   Cancelar
-
                 </Button>
               </div>
-
-
             </form>
           </Form>
-
-
         </CardContent>
 
 
 
         <CardFooter>
+
           <p className="text-gray-600 text-sm font-medium">
             Total: ${total.toFixed(2)}
           </p>
 
         </CardFooter>
       </Card>
-      {/* Button to erase orden, to the rigth of the card */}
-
     </>
   )
 }

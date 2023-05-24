@@ -43,7 +43,7 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
             )
         },
         cell: ({ row }) => {
-            const status = row.getValue("status") as IOrder["status"]
+            const status : IOrder["status"] = row.getValue("status")
             return (
                 <div className="flex items-center">
                     <span
@@ -61,6 +61,7 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
         }
     },
     {
+        id: "email",
         accessorKey: "owner",
         header: ({ column }) => {
             return (
@@ -74,7 +75,7 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
             )
         },
         cell: ({ row }) => {
-            const user = row.getValue("owner") as IUser
+            const user = row.getValue("email") as IUser
             return user.email
 
         },
@@ -115,7 +116,7 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-            const order = row.original
+            const order: IOrder = row.original
 
             return (
                 <DropdownMenu>
@@ -133,7 +134,11 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
                             Copiar ID de orden
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Ver usuario</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Link href={`/clientes/${order.owner_id}`}>
+                                Ver detalles del usuario
+                            </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>
                             <Link href={`/pedidos/${order.id}`}>
                                 Ver detalles del pedido

@@ -1,9 +1,11 @@
-const Productos = () => {
+// Tabla de productos para el administrador o vendedor
+
+const ProductosAdmin = () => {
     return (
         <div>
-            <h1>Productos</h1>
+            <h1>Productos Admin</h1>
         </div>
     )
 }
 
-export default Productos
+export default ProductosAdmin

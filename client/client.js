@@ -17,9 +17,21 @@ class FastAPIClient {
         this.apiClient = this.getApiClient(this.config);
     }
 
+    /* ----- Client Configuration ----- */
+
+    // This is the base client configuration for the API client
+    getApiClient(config) {
+        const initialConfig = {
+            baseURL: `${config.apiBasePath}/api/v1`,
+        };
+        const client = axios.create(initialConfig);
+        client.interceptors.request.use(localStorageTokenInterceptor);
+        return client;
+    }
+
+
 
     /* ----- API Operations AUTH ----- */
-
     login(username, password) {
         delete this.apiClient.defaults.headers['Authorization'];
 
@@ -66,17 +78,6 @@ class FastAPIClient {
         localStorage.removeItem('user');
     }
 
-    /* ----- Client Configuration ----- */
-
-    // This is the base client configuration for the API client
-    getApiClient(config) {
-        const initialConfig = {
-            baseURL: `${config.apiBasePath}/api/v1`,
-        };
-        const client = axios.create(initialConfig);
-        client.interceptors.request.use(localStorageTokenInterceptor);
-        return client;
-    }
 
     /* ----- API Operations ORDERS ----- */
 
@@ -86,25 +87,32 @@ class FastAPIClient {
     }
 
 
-    // 3 - Get all orders belonging to user
+    // 2 - Get all orders belonging to user
     getOwnOrders() {
         return this.apiClient.get(`/order`).then(({ data }) => {
             return data;
         });
     }
 
-    // 4 - Update order
+    // 3 - Update order
     updateOrder(orderId, values) {
-        const orderData = {
-            ...values
-        };
+        // create orderData with only the values that are not null or undefined
+        const orderData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+        
+
+        console.log(orderData);
         return this.apiClient.put(`/order/${orderId}`, orderData).then(
             (resp) => {
                 return resp.data;
             });
     }
 
-    // 5 - Create order
+    // 4 - Create order
     createOrder(status, owner_id, order_items) {
         const orderData = {
             status,
@@ -119,24 +127,27 @@ class FastAPIClient {
 
     }
 
-    // 6 - Delete order
+    // 5 - Delete order
     deleteOrder(orderId) {
         return this.apiClient.delete(`/order/${orderId}`);
     }
 
-    // 7 - Get active order
-    getOwnActiveOrder() {
-        return this.apiClient.get(`/order/active-order`).then(({ data }) => {
-            return data;
-        });
-    }
+    
 
-    getVendedores() { // Dummy data
+    /* ----- API Operations PRODUCTS ----- */
+
+
+    /* ----- API Operations VENDEDORES ----- */
+    getVendedores() {
         return this.apiClient.get(`/vendedores`).then(({ data }) => {
             return data;
         });
 
     }
+
+    /* ----- API Operations CLIENTS ----- */
+
+
 
 }
 
