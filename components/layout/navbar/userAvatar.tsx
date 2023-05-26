@@ -36,6 +36,11 @@ export function UserAvatar({ username, email }: UserNavProps) {
     router.push("/perfil")
   }
 
+  function configuracion() {
+    console.log("Configuracion")
+    router.push("/configuracion")
+  }
+
 
   return (
     <DropdownMenu>
@@ -66,7 +71,7 @@ export function UserAvatar({ username, email }: UserNavProps) {
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Pago</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={configuracion}>
             <Settings className="mr-2 h-4 w-4" />
             <span>Configuración</span>
           </DropdownMenuItem>
