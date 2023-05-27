@@ -23,7 +23,7 @@ const ownerFilterFn: FilterFn<IUser> = (rows , id, filterValue) => {
     
 }
   
-export const columnsPedidos: ColumnDef<IUser>[] = [
+export const columnsVendedores: ColumnDef<IUser>[] = [
     {
         accessorKey: "id",
         header: "ID",
@@ -56,11 +56,31 @@ export const columnsPedidos: ColumnDef<IUser>[] = [
 
     {
         accessorKey: "first_name",
-        header: "Nombre"
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Nombre
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        }
     },
     {
         accessorKey: "last_name",
-        header: "Apellidos"
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Apellidos
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        }
     },
     {
         id: "actions",
@@ -83,9 +103,6 @@ export const columnsPedidos: ColumnDef<IUser>[] = [
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                             Editar vendedor
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            Agregar vendedor
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
