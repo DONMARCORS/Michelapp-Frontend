@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
+import { DataTable } from "@/components/ui/data-table";
+import { columnsVendedores } from "@/components/columns/columnsVendedores";
 import FastAPIClient from "@/client/client"
 import { Icons } from '@/components/icons';
 
@@ -52,13 +54,17 @@ const Admin = () => {
                             <h1>Admin</h1>
                             <div>
                                 <h2>Vendedores</h2>
-                                <ul>
+                                {/* TODO: crear mis propias columnas como las de pedidos */}
+                                <div className="flex flex-col bg-slate-100 w-screen">
+                                    <DataTable columns={columnsVendedores} data={vendedores} />
+                                </div>
+                                {/* <ul>
                                     {vendedores.map((vendedor) => (
                                         <li key={vendedor.id}>
                                             {vendedor.first_name} {vendedor.email}
                                         </li>
                                     ))}
-                                </ul>
+                                </ul> */}
                             </div>
                         </>
                     )}
