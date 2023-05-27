@@ -38,6 +38,7 @@ import { Input } from "../ui/input"
 const formSchema = z.object({
   status: z.string().min(1).max(255),
   username: z.any().optional(),
+  email: z.string().email().min(1).max(255)
 })
 
 
@@ -49,6 +50,23 @@ const FormVendedor: React.FC<FormVendedorProps> = ({ className, vendedor }) => {
 
   const router = useRouter()
   const client = new FastAPIClient({})
+
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  })
+
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // ✅ This will be type-safe and validated.
+    console.log(values)
+    try {
+      client.updateVendedor(vendedor.id, values)
+      router.push("/vendedores/all")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   function deleteVendedor() {
@@ -71,6 +89,35 @@ const FormVendedor: React.FC<FormVendedorProps> = ({ className, vendedor }) => {
             Eliminar Vendedor
           </Button>
         </CardHeader>
+        <CardContent>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormDescription>
+                      Escribe un nuevo email:
+                    </FormDescription>
+                    <FormControl>
+                      <Input placeholder="email@ejemplo.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-start">
+                <Button type="submit">Actualizar</Button>
+                <Button variant="secondary" className="ml-10" type="reset" onClick={() => router.back()}>
+                  Cancelar
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
       </Card>
 
     </>

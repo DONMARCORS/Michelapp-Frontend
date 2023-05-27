@@ -149,6 +149,23 @@ class FastAPIClient {
         return this.apiClient.delete(`/vendedores/${vendedorId}`);
     }
 
+    updateVendedor(vendedorId, values){
+        // create vendedorData with only the values that are not null or undefined
+        const vendedorData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+        
+
+        console.log(orderData);
+        return this.apiClient.put(`/vendedores/${vendedorId}`, orderData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
     /* ----- API Operations CLIENTS ----- */
 
 
