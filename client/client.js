@@ -145,6 +145,10 @@ class FastAPIClient {
 
     }
 
+    deleteVendedor(vendedorId){
+        return this.apiClient.delete(`/vendedores/${vendedorId}`);
+    }
+
     /* ----- API Operations CLIENTS ----- */
 
 

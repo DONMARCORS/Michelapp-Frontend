@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select"
 import { useForm } from "react-hook-form"
 
+import IUser from "@/types/IUser"
 import { Badge } from "../ui/badge";
 import { CalendarDays } from "lucide-react";
 
@@ -41,31 +42,35 @@ const formSchema = z.object({
 
 
 interface FormVendedorProps extends React.HTMLAttributes<HTMLDivElement> {
+  vendedor: IUser;
 }
 
-const FormVendedor: React.FC<FormVendedorProps> = ({ className }) => {
+const FormVendedor: React.FC<FormVendedorProps> = ({ className, vendedor }) => {
 
   const router = useRouter()
   const client = new FastAPIClient({})
 
 
-  // 2. Define a submit handler.
-
+  function deleteVendedor() {
+    try {
+      client.deleteVendedor(vendedor.id)
+      router.push("/vendedores/all")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>{`${vendedor.first_name} ${vendedor.last_name}`}</CardTitle>
+          <CardDescription>{`Privilegio: ${vendedor.privilege}`}</CardDescription>
+          <Button className="ml-auto" variant="destructive" onClick={deleteVendedor}>
+            Eliminar Vendedor
+          </Button>
         </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
 
     </>

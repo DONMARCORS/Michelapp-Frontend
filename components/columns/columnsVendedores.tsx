@@ -1,4 +1,5 @@
 "use client"
+import * as React from "react"
 
 import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
@@ -85,6 +86,7 @@ export const columnsVendedores: ColumnDef<IUser>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
+            const user: IUser = row.original
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -95,14 +97,11 @@ export const columnsVendedores: ColumnDef<IUser>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            // onClick={() => navigator.clipboard.writeText(String(order.id))}
-                        >
-                            Borrar vendedor
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            Editar vendedor
+                            <Link href={`/vendedores/${user.id}`}>
+                                Editar vendedor
+                            </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
