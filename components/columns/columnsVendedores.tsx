@@ -32,27 +32,27 @@ export const columnsPedidos: ColumnDef<IUser>[] = [
         accessorKey: "privilege",
         header: "Privilege"
     },
-    // {
-    //     id: "email",
-    //     accessorKey: "email",
-    //     header: ({ column }) => {
-    //         return (
-    //             <Button
-    //                 variant="ghost"
-    //                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //             >
-    //                 Email
-    //                 <ArrowUpDown className="ml-2 h-4 w-4" />
-    //             </Button>
-    //         )
-    //     },
-    //     cell: ({ row }) => {
-    //         return row.getValue("email");
+    {
+        id: "email",
+        accessorKey: "email",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Email
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+        cell: ({ row }) => {
+            return row.getValue("email");
 
-    //     },
-    //     filterFn: ownerFilterFn,
+        },
+        filterFn: ownerFilterFn,
         
-    // },
+    },
 
     {
         accessorKey: "first_name",
