@@ -58,11 +58,11 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order }) => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     console.log(values)
     try {
-      client.updateOrder(order.id, values)
+      await client.updateOrder(order.id, values)
       router.push("/pedidos/all")
     } catch (error) {
       console.log(error)

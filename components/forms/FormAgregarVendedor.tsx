@@ -59,11 +59,11 @@ const FormAgregarVendedor: React.FC<FormAgregarVendedorProps> = ({ className }) 
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     console.log(values)
     try {
-      client.createVendedor(values)
+      await client.createVendedor(values)
       router.push("/vendedores/all")
     } catch (error) {
       console.log(error)
@@ -73,7 +73,7 @@ const FormAgregarVendedor: React.FC<FormAgregarVendedorProps> = ({ className }) 
 
   return (
     <>
-      <Card>
+      <Card className={className}>
         <CardHeader>
           <CardTitle>Vendedor nuevo</CardTitle>
           <CardDescription>Inserta los datos del nuevo vendedor</CardDescription>

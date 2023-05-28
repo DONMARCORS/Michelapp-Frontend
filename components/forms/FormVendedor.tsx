@@ -55,11 +55,11 @@ const FormVendedor: React.FC<FormVendedorProps> = ({ className, vendedor }) => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     console.log(values)
     try {
-      client.updateVendedor(vendedor.id, values)
+      await client.updateVendedor(vendedor.id, values)
       router.push("/vendedores/all")
     } catch (error) {
       console.log(error)
@@ -79,7 +79,7 @@ const FormVendedor: React.FC<FormVendedorProps> = ({ className, vendedor }) => {
 
   return (
     <>
-      <Card>
+      <Card className={className}>
         <CardHeader>
           <CardTitle>{`${vendedor.first_name} ${vendedor.last_name}`}</CardTitle>
           <CardDescription>{`Privilegio: ${vendedor.privilege}`}</CardDescription>
