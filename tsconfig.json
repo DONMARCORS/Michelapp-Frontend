@@ -18,6 +18,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login.jsx", "pages/dashboard.jsx", "components/layout/layout.tsx", "pages/signup.jsx", "pages/admin/admin.jsx", "pages/vendedor/pedidos.tsx", "pages/vendedores/[id].js", "pages/vendedores/all.jsx", "pages/pedidos/all.jsx", "pages/clientes/all.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/login.jsx", "pages/dashboard.jsx", "components/layout/layout.tsx", "pages/signup.jsx", "pages/admin/admin.jsx", "pages/vendedor/pedidos.tsx", "pages/vendedores/[id].tsx", "pages/vendedores/all.jsx", "pages/pedidos/all.jsx", "pages/clientes/all.jsx"],
   "exclude": ["node_modules"]
 }

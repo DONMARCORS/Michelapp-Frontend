@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
+import { DataTable } from "@/components/ui/data-table-vendedores";
+import { columnsVendedores } from "@/components/columns/columnsVendedores";
 import FastAPIClient from "@/client/client"
 import { Icons } from '@/components/icons';
 
@@ -49,17 +51,9 @@ const Admin = () => {
                 {!loading && vendedores && // if loading is false and vendedores is not null, we show the data
                     (
                         <>
-                            <h1>Admin</h1>
-                            <div>
-                                <h2>Vendedores</h2>
-                                <ul>
-                                    {vendedores.map((vendedor) => (
-                                        <li key={vendedor.id}>
-                                            {vendedor.first_name} {vendedor.email}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                <div className="flex flex-col bg-slate-100 w-screen">
+                                    <DataTable columns={columnsVendedores} data={vendedores} />
+                                </div>
                         </>
                     )}
             </LayoutAuthenticated>

@@ -145,6 +145,42 @@ class FastAPIClient {
 
     }
 
+    deleteVendedor(vendedorId){
+        return this.apiClient.delete(`/vendedores/${vendedorId}`);
+    }
+
+    updateVendedor(vendedorId, values){
+        // create vendedorData with only the values that are not null or undefined
+        const vendedorData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+        
+
+        console.log(vendedorData);
+        return this.apiClient.put(`/vendedores/${vendedorId}`, vendedorData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
+    createVendedor(values){
+        // create vendedorData with only the values that are not null or undefined
+        const vendedorData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+        vendedorData["privilege"] = 2;
+        return this.apiClient.post('/vendedores', vendedorData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
     /* ----- API Operations CLIENTS ----- */
 
 
