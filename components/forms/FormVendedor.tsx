@@ -36,8 +36,6 @@ import { Input } from "../ui/input"
 
 // Validaciones del formulario
 const formSchema = z.object({
-  status: z.string().min(1).max(255),
-  username: z.any().optional(),
   email: z.string().email().min(1).max(255)
 })
 

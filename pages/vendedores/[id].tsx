@@ -9,7 +9,7 @@ import FormVendedor from "@/components/forms/FormVendedor";
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
 
 
-const Pedido = () => {
+const Vendedor = () => {
     const [vendedor, setVendedor] = useState<IUser | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -44,7 +44,7 @@ const Pedido = () => {
     return (
         <div>
 
-            <LayoutAuthenticated title="Pedido">
+            <LayoutAuthenticated title="Vendedor">
                 {loading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
                 {!loading && vendedor && (
                     <div className="flex flex-col gap-4 justify-center items-center mt-3">
@@ -59,4 +59,4 @@ const Pedido = () => {
     );
 };
 
-export default Pedido;
+export default Vendedor;

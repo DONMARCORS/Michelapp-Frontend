@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table-vendedores";
 import { columnsVendedores } from "@/components/columns/columnsVendedores";
 import FastAPIClient from "@/client/client"
 import { Icons } from '@/components/icons';
