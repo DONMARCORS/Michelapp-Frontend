@@ -61,7 +61,7 @@ const LayoutAuthenticated = ({ children, title }: LayoutProps) => {
                         <NavbarAuthenticated privilege={profile!.privilege} currentPage={currentPage} />
 
                         <div className="ml-auto flex items-center space-x-4">
-                            <UserAvatar username={profile!.first_name} email={profile!.email} />
+                            <UserAvatar username={profile!.first_name} email={profile!.email} privilege={profile!.privilege} />
                         </div>
                     </div>
 

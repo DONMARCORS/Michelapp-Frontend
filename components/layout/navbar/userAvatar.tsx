@@ -19,10 +19,11 @@ import {
 interface UserNavProps {
   username: string
   email: string
+  privilege: number
 }
 
 
-export function UserAvatar({ username, email }: UserNavProps) {
+export function UserAvatar({ username, email,  privilege}: UserNavProps) {
   const router = useRouter()
 
   function logout() {
@@ -38,7 +39,10 @@ export function UserAvatar({ username, email }: UserNavProps) {
 
   function configuracion() {
     console.log("Configuracion")
-    router.push("/configuracion")
+    if(privilege == 3) {
+
+      router.push("/configuracionCliente")
+    }
   }
 
 

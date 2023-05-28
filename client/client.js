@@ -148,8 +148,31 @@ class FastAPIClient {
     }
 
     /* ----- API Operations CLIENTS ----- */
+    updateClientEmail(client_id, email_c) {
+        const updateData = {
+            email: email_c,
+        };
 
+        return this.apiClient.put(`/clientes/email/${client_id}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
 
+    updateClientAddress(client_id, address_c) {
+        const updateData = {
+            address: address_c,
+        };
+
+        return this.apiClient.put(`/clientes/email/${client_id}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
+    deleteClient(client_id, client_pwd) {
+        return this.apiClient.delete(`/clientes/${client_id}/${client_pwd}`);
+    }
 
 }
 
