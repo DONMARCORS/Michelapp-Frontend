@@ -10,11 +10,7 @@ import Head from "next/head"
 import { Icons } from "@/components/icons"
 import {
     Menubar,
-    MenubarContent,
-    MenubarItem,
     MenubarMenu,
-    MenubarSeparator,
-    MenubarTrigger,
 } from "@/components/ui/menubar"
 import {
     Dialog,
@@ -28,11 +24,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { ToastAction } from "@/components/ui/toast"
+import { toast, useToast } from "@/components/ui/use-toast"
 
 interface UserUpdateFormState {
     email: string
     address: string
-    password: string
     pass1: string
     pass2: string
 }
@@ -48,7 +45,6 @@ export default function ConfiguracionCliente() {
     const [state, setState] = React.useState<UserUpdateFormState>({
         email: "",
         address: "",
-        password: "",
         pass1: "",
         pass2: ""
     })
@@ -115,6 +111,22 @@ export default function ConfiguracionCliente() {
     }
 
 
+    async function actualizarContrasena(event: React.SyntheticEvent) {
+        event.preventDefault()
+        setIsLoading(true)
+        try {
+            const res = await client.updateClientPassword(profile?.id, state.pass1, state.pass2)
+            if (res) {
+                setIsLoading(false)
+                router.push("/perfil")
+        
+            }
+        } catch (error) {
+            setIsLoading(false)
+            setError("Incorrect password")
+        }
+    
+    }
 
     async function borrarCuenta(event: React.SyntheticEvent) {
         event.preventDefault()
@@ -132,15 +144,16 @@ export default function ConfiguracionCliente() {
                 }
 
             }else {
-                console.log("No iguales")
+
                 setIsLoading(false)
-                setError("Invalid password")
+                setError("Not same passwords")
+                
             }
 
             
         } catch (error) {
             setIsLoading(false)
-            setError("Invalid password")
+            setError("Incorrect password")
         }
     
     }
@@ -230,17 +243,23 @@ export default function ConfiguracionCliente() {
                                 <Label htmlFor="name" className="text-right">
                                 Contraseña anterior
                                 </Label>
-                                <Input id="contraAnt" type={"password"} className="col-span-3" />
+                                <Input id="contraAnt" type={"password"} className="col-span-3"
+                                disabled={isLoading}
+                                value={state.pass1}
+                                onChange={(event) => setState({ ...state, pass1: event.target.value })} />
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="username" className="text-right">
                                 Contraseña nueva
                                 </Label>
-                                <Input id="contraNueva" type={"password"} className="col-span-3" />
+                                <Input id="contraNueva" type={"password"} className="col-span-3"
+                                disabled={isLoading}
+                                value={state.pass2}
+                                onChange={(event) => setState({ ...state, pass2: event.target.value })} />
                             </div>
                             </div>
                             <DialogFooter>
-                            <Button type="submit">Actualizar</Button>
+                            <Button type="submit" onClick={actualizarContrasena}>Actualizar</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>

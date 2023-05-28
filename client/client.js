@@ -170,6 +170,17 @@ class FastAPIClient {
             });
     }
 
+    updateClientPassword(client_id, old_password_c, new_password_c) {
+        const updateData = {
+            password: new_password_c,
+        };
+
+        return this.apiClient.put(`clientes/password/${client_id}/${old_password_c}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
     deleteClient(client_id, client_pwd) {
         return this.apiClient.delete(`/clientes/${client_id}/${client_pwd}`);
     }
