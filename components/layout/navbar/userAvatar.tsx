@@ -19,10 +19,11 @@ import {
 interface UserNavProps {
   username: string
   email: string
+  privilege: number
 }
 
 
-export function UserAvatar({ username, email }: UserNavProps) {
+export function UserAvatar({ username, email,  privilege}: UserNavProps) {
   const router = useRouter()
 
   function logout() {
@@ -34,6 +35,14 @@ export function UserAvatar({ username, email }: UserNavProps) {
 
   function perfil() {
     router.push("/perfil")
+  }
+
+  function configuracion() {
+    console.log("Configuracion")
+    if(privilege == 3) {
+
+      router.push("/configuracionCliente")
+    }
   }
 
 
@@ -66,7 +75,7 @@ export function UserAvatar({ username, email }: UserNavProps) {
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Pago</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={configuracion}>
             <Settings className="mr-2 h-4 w-4" />
             <span>Configuración</span>
           </DropdownMenuItem>

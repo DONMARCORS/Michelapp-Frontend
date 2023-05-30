@@ -15,8 +15,10 @@ import { Icons } from "@/components/icons"
 interface UserSignupFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 interface UserSignupFormState {
   nombre: string
+  apellido: string
   email: string
   birthday: string
+  address: string
   password: string
 }
 
@@ -27,8 +29,10 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [state, setState] = React.useState<UserSignupFormState>({
     nombre: "",
+    apellido: "",
     email: "",
     birthday: "",
+    address: "",
     password: "",
   })
   const [error, setError] = React.useState<string | null>(null)
@@ -40,7 +44,7 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
     setIsLoading(true)
 
     try {
-      const res = await client.register(state.nombre, state.email, state.password, state.birthday)
+      const res = await client.register(state.nombre, state.apellido, state.email, state.birthday, state.address, state.password)
       if (res) {
         setIsLoading(false)
         router.push("/login")
@@ -73,6 +77,23 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
                 required
                 value={state.nombre}
                 onChange={(event) => setState({ ...state, nombre: event.target.value })}
+              />
+            </div>
+            <div className="grid gap-1">
+              <Label className="sr-only" htmlFor="email">
+                Apellidos
+              </Label>
+              <Input
+                id="apellido"
+                placeholder="Smith"
+                type="text"
+                autoCapitalize="none"
+                autoComplete="text"
+                autoCorrect="off"
+                disabled={isLoading}
+                required
+                value={state.apellido}
+                onChange={(event) => setState({ ...state, apellido  : event.target.value })}
               />
             </div>
             <Label className="sr-only" htmlFor="email">
@@ -110,6 +131,24 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
             />
           </div>
           <div className="grid gap-1">
+              <Label className="sr-only" htmlFor="email">
+                Dirección
+              </Label>
+              <Input
+                id="direccion"
+                placeholder="Ciudad de México"
+                type="text"
+                autoCapitalize="none"
+                autoComplete="text"
+                autoCorrect="off"
+                disabled={isLoading}
+                required
+                value={state.address}
+                onChange={(event) => setState({ ...state, address : event.target.value })}
+              />
+            </div>
+
+          {/* <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
               Contraseña
             </Label>
@@ -124,7 +163,7 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
               value={state.password}
               onChange={(event) => setState({ ...state, password: event.target.value })}
             />
-          </div>
+          </div> */}
           <Button disabled={isLoading}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />

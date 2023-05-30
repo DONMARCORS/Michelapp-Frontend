@@ -90,7 +90,7 @@ export default function SignUp() {
                   Crea tu cuenta
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  Ingresa tu correo y contraseña para registrate
+                  Ingresa los siguientes datos para registrate
                 </p>
               </div>
               <UserSignupForm />

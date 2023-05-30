@@ -56,16 +56,18 @@ class FastAPIClient {
         });
     }
 
-    register(firstName, email, password, birthday) {
+    register(firstName, lastName, email, birthday, address, password) {
         const registerData = {
             first_name: firstName,
-            password,
+            last_name: lastName,
             email,
             birthday,
-            privilege: 3
+            address,
+            privilege: 3,
+            password
         };
 
-        return this.apiClient.post('/auth/signup', registerData).then(
+        return this.apiClient.post('/clientes', registerData).then(
             (resp) => {
                 return resp.data;
             });
@@ -182,8 +184,42 @@ class FastAPIClient {
     }
 
     /* ----- API Operations CLIENTS ----- */
+    updateClientEmail(client_id, email_c) {
+        const updateData = {
+            email: email_c,
+        };
 
+        return this.apiClient.put(`/clientes/email/${client_id}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
 
+    updateClientAddress(client_id, address_c) {
+        const updateData = {
+            address: address_c,
+        };
+
+        return this.apiClient.put(`/clientes/email/${client_id}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
+    updateClientPassword(client_id, old_password_c, new_password_c) {
+        const updateData = {
+            password: new_password_c,
+        };
+
+        return this.apiClient.put(`clientes/password/${client_id}/${old_password_c}`, updateData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
+    deleteClient(client_id, client_pwd) {
+        return this.apiClient.delete(`/clientes/${client_id}/${client_pwd}`);
+    }
 
 }
 
