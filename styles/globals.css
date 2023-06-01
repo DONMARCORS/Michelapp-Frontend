@@ -83,3 +83,22 @@
 .barra-config {
   justify-content: center;
 }
+
+.blog-img {
+  display: flex;
+  justify-content: center;
+}
+
+.blog-img img{
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 90%;
+  max-height: 800px;
+  object-fit: cover;
+  border-radius: 2rem;
+}
+
+.blog-content {
+  padding: 2rem;
+  margin: 2rem 0;
+}
