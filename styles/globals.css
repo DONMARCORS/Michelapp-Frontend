@@ -126,7 +126,7 @@
   border-radius: 2rem;
 }
 
-.blog-content {
+.blog-content, .about-content {
   padding: 2rem;
   margin: 2rem 0;
 }
@@ -148,4 +148,23 @@
   margin-top: .5rem;
   display: flex;
   justify-content: flex-end;
+}
+
+/* Sobre nosotros page */
+.about-content-main {
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: space-evenly;
+  padding: 1rem;
+  align-items: center;
+}
+.about-content {
+  text-align: justify;
+}
+
+@media (max-width: 1200px) {
+
+  .about-content-main{
+    display: block;
+  }
 }
