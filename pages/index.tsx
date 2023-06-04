@@ -56,7 +56,7 @@ export default function Home() {
 
       {showContent && !loading && ( // When loading is complete and no user is found, we show the page content
         <Layout>
-          <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 h-screen">
             <div className="text-center">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                 <span className="block xl:inline">Micheladas</span>
