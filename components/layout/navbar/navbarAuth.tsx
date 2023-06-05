@@ -17,7 +17,7 @@ export function NavbarAuthenticated({
         { href: '/vendedores/all', label: 'Vendedores' },
         { href: '/clientes/all', label: 'Clientes' },
         { href: '/pedidos/all', label: 'Pedidos' },
-        { href: '/reportes-venta', label: 'Reportes' },
+        { href: '/reportes-venta/all', label: 'Reportes' },
         { href: '/productos/all', label: 'Productos' },
 
 
@@ -27,7 +27,7 @@ export function NavbarAuthenticated({
     const vendedorLinks = [
         { href: '/clientes/all', label: 'Clientes' },
         { href: '/pedidos/all', label: 'Pedidos' },
-        { href: '/reportes-venta', label: 'Reportes' },
+        { href: '/reportes-venta/add', label: 'Reportes' },
         { href: '/productos/all', label: 'Productos' },
 
 

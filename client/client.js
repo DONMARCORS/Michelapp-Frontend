@@ -221,6 +221,26 @@ class FastAPIClient {
         return this.apiClient.delete(`/clientes/${client_id}/${client_pwd}`);
     }
 
+    
+    /* ----- API Operations SALE-REPORTS ----- */
+    getAllReports() {
+        return this.apiClient.get('/reporte-venta/all_report');
+    }
+
+    createReport(notas, total, owner_id, rfc) {
+        const reportData = {
+            notas,
+            total,
+            owner_id,
+            rfc
+        };
+
+        return this.apiClient.post('/reporte-venta/make_report', reportData).then(
+            (resp) => {
+                return resp.data;
+            });
+
+    }
 }
 
 
