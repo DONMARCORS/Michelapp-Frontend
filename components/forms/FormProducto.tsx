@@ -61,97 +61,124 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
         } catch (error) {
             console.log(error)
         }
+    }
 
+    function deleteProduct() {
+        try {
+            const response = await client.delete<IProduct>("/products/", values)
+            console.log(response)
+            router.push("/productos")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
-        <Form onSubmit={form.handleSubmit(onSubmit)} className={className}>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Producto</CardTitle>
-                    <CardDescription>Formulario para crear un producto</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <FormItem>
-                        <FormLabel htmlFor="name">Nombre</FormLabel>
-                        <FormField>
-                            <Input
-                                type="text"
-                                id="name"
-                                name="name"
-                                placeholder="Nombre"
-                                {...form.register("name")}
-                            />
-                        </FormField>
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel htmlFor="description">Descripción</FormLabel>
-                        <FormField>
-                            <Input
-                                type="text"
-                                id="description"
-                                name="description"
-                                placeholder="Descripción"
-                                {...form.register("description")}
-                            />
-                        </FormField>
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel htmlFor="price">Precio</FormLabel>
-                        <FormField>
-                            <Input
-                                type="number"
-                                id="price"
-                                name="price"
-                                placeholder="Precio"
-                                {...form.register("price")}
-                            />
-                        </FormField>
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel htmlFor="stock">Stock</FormLabel>
-                        <FormField>
-                            <Input
-                                type="number"
-                                id="stock"
-                                name="stock"
-                                placeholder="Stock"
-                                {...form.register("stock")}
-                            />
-                        </FormField>
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel htmlFor="image">Imagen</FormLabel>
-                        <FormField>
-                            <Input
-                                type="text"
-                                id="image"
-                                name="image"
-                                placeholder="Imagen"
-                                {...form.register("image")}
-                            />
-                        </FormField>
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel htmlFor="category">Categoría</FormLabel>
-                        <FormField>
-                            <Input
-                                type="text"
-                                id="category"
-                                name="category"
-                                placeholder="Categoría"
-                                {...form.register("category")}
-                            />
-                        </FormField>
-                    </FormItem>
-                </CardContent>
-                <CardFooter>
-                    <Button type="submit">Crear</Button>
-                </CardFooter>
-            </Card>
-        </Form>
+        <>
+        <Card className={className}>
+            <CardHeader>
+                <CardTitle>Producto</CardTitle>
+                <CardDescription>{'Descripción: ${producto.descripcion}'}</CardDescription>
+                <Button className="ml-auto" variant="destructive" onClick={deleteProduct}>
+                    Eliminar producto
+                </Button>
+            </CardHeader>
+            <CardContent>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="nombre"
+                        render={({ field, formState }) => (
+                            <FormItem>
+                                <FormLabel>Nombre del producto</FormLabel>
+                                <FormDescription>
+                                    Escribe un nombre para el producto:
+                                </FormDescription>
+                                <FormControl>
+                                    <Input placeholder="Clamato" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="id"
+                        render={({ field, formState }) => (
+                            <FormItem>
+                                <FormLabel>ID</FormLabel>
+                                <FormDescription>
+                                    Escribe el ID del producto:
+                                </FormDescription>
+                                <FormControl>
+                                    <Input placeholder="123" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="descripcion"
+                        render={({ field, formState }) => (
+                            <FormItem>
+                                <FormLabel>Descripción</FormLabel>
+                                <FormDescription>
+                                    Escribe una descripción para el producto:
+                                </FormDescription>
+                                <FormControl>
+                                    <Input placeholder="Jugo de tomate preparado" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="precio"
+                        render={({ field, formState }) => (
+                            <FormItem>
+                                <FormLabel>Precio</FormLabel>
+                                <FormDescription>
+                                    Escribe el precio del producto:
+                                </FormDescription>
+                                <FormControl>
+                                    <Input placeholder="23.50" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="cantidad"
+                        render={({ field, formState }) => (
+                            <FormItem>
+                                <FormLabel>Cantidad</FormLabel>
+                                <FormDescription>
+                                    Escribe la cantidad de productos disponibles:
+                                </FormDescription>
+                                <FormControl>
+                                    <Input placeholder="100" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    
+                    <div className="flex justify-end">
+                        <Button type="submit">Guardar</Button>
+                        <Button variant="secondary" className="ml-10" type="reset" onClick={router.back}>
+                            Cancelar
+                        </Button>
+                    </div>
+                </form>
+            </Form>
+        </CardContent>
+    </Card>
+    </>
     )
 }
 
 export default FormProducto
-
