@@ -137,6 +137,50 @@ class FastAPIClient {
     
 
     /* ----- API Operations PRODUCTS ----- */
+    // 1 - Get all products
+    getProducts() {
+        return this.apiClient.get(`/products`).then(({ data }) => {
+            return data;
+        });
+    }
+
+    // 2 - Delete product
+    deleteProduct(productId){
+        return this.apiClient.delete(`/products/${productId}`);
+    }
+
+    // 3 - Update product
+    updateProduct(productId, values){
+        // create productData with only the values that are not null or undefined
+        const productData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+
+        console.log(productData);
+        return this.apiClient.put(`/products/${productId}`, productData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
+
+    // 4 - Create product
+    createProduct(name, id, description, price, stock){
+        const productData = {
+            name,
+            id,
+            description,
+            price,
+            stock
+        };
+
+        return this.apiClient.post('/products', productData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
 
 
     /* ----- API Operations VENDEDORES ----- */
