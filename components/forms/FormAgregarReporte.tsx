@@ -39,8 +39,8 @@ import IReport from "@/types/IReport"
 const formSchema = z.object({
     notas: z.string().min(1).max(255),
     //total: z.string().min(1).max(255),
-    total: z.number().min(0),
-    owner_id: z.number().min(0),
+    total: z.any(),
+    owner_id: z.any(),
     rfc: z.string().min(13).max(13),
 })
 
@@ -101,7 +101,7 @@ const FormAgregarReporte: React.FC<FormAgregarReporteProps> = ({ className }) =>
                   <FormItem>
                     <FormLabel>Total</FormLabel>
                     <FormControl>
-                      <Input placeholder="1500" {...field} />
+                      <Input type="number" placeholder="1500" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
