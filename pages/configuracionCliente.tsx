@@ -24,8 +24,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { ToastAction } from "@/components/ui/toast"
-import { toast, useToast } from "@/components/ui/use-toast"
 
 interface UserUpdateFormState {
     email: string

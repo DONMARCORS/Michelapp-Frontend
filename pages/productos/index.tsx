@@ -7,8 +7,6 @@ import IProduct from "@/types/IProduct"
 import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import IUser from "@/types/IUser"
-import { useToast } from "@/components/ui/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 
 
 interface OrderItem {
@@ -21,7 +19,6 @@ const Productos = () => {
 
     const router = useRouter()
     const client = new FastAPIClient({})
-    const { toast } = useToast()
 
 
     const [productos, setProductos] = useState<IProduct[]>([])
@@ -44,11 +41,7 @@ const Productos = () => {
 
     const createOrder = async () => {
         if (selectedProducts.length === 0) {
-            toast({
-                title: "No hay productos seleccionados",
-                description: "Por favor selecciona al menos un producto",
-                duration: 3000,
-            })
+            
             return
         }
 
@@ -68,11 +61,7 @@ const Productos = () => {
         try {
             const response = await client.createOrder(status, owner_id, orderItems)
             console.log(response)
-            toast({
-                title: "Orden Creada exitosamente",
-                description: "Se ha creado la orden exitosamente",
-                
-            })
+            
             await router.push("/pedidos")
         } catch (error) {
             console.log(error)
