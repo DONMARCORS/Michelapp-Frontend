@@ -21,8 +21,11 @@ const PedidoCard: React.FC<OrderCardProps> = ({ className, order, ...props }) =>
 
           <CardTitle>Orden   #{order.id}</CardTitle>
           <div className="flex items-right ml-auto">
-            <Badge className={`${order.status === "realizado" ? "bg-green-500" : 
-            order.status === "cancelado" ? "bg-red-500" : ""} text-white`}>
+            <Badge className={`${order.status === "entregado" ? "bg-green-500" : 
+            order.status === "cancelado" ? "bg-red-500" : 
+            order.status === "realizado" ? "bg-yellow-500" : 
+            
+            ""} text-white`}>
 
               {order.status}</Badge>
           </div>

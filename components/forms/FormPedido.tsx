@@ -37,7 +37,6 @@ import { Input } from "../ui/input"
 // Validaciones del formulario
 const formSchema = z.object({
   status: z.string().min(1).max(255),
-  username: z.any().optional(),
 })
 
 
@@ -80,7 +79,6 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order }) => {
 
   useEffect(() => {
     form.setValue("status", order.status)
-    form.setValue("username", "ejemplo")
   }, [])
 
   return (
@@ -164,22 +162,6 @@ const FormPedido: React.FC<FormPedidoProps> = ({ className, order }) => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <div className="flex justify-start">
                 <Button type="submit">Guardar</Button>

@@ -103,6 +103,13 @@ export const columnsVendedores: ColumnDef<IUser>[] = [
                                 Editar vendedor
                             </Link>
                         </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+
+                        <DropdownMenuItem
+                            onClick={() => navigator.clipboard.writeText(String(user.id))}
+                        >
+                            Copiar ID del vendedor
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

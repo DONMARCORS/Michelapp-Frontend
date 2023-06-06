@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { Icons } from "@/components/icons";
 import FastAPIClient from "@/client/client";
 import { DataTable } from "@/components/ui/data-table";
-import { columnsVendedores } from "@/components/columns/columnsVendedores";
-
+import { columnsClientes } from "@/components/columns/columnsClientes";
 
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated"
@@ -52,7 +51,7 @@ const Clientes = () => {
                     (
                         <>
                                 <div className="flex flex-col bg-slate-100 w-screen">
-                                    <DataTable columns={columnsVendedores} data={clientes} />
+                                    <DataTable columns={columnsClientes} data={clientes} />
                                 </div>
                         </>
                     )}

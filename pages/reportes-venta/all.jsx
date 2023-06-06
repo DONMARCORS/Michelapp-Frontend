@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import LayoutAuthenticated from "@/components/layout/layoutAuthenticated";
 import { Icons } from "@/components/icons";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table-reportes";
 import { columnsReportes } from "@/components/columns/columnsReportes";
 
 import FastAPIClient from "@/client/client";

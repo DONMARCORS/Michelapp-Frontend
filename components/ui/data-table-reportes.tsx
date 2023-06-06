@@ -65,22 +65,7 @@ export function DataTable<TData, TValue>({
     <>
     
       <div className="rounded-md border">
-        <div className="flex justify-between py-4 ml-4">
-
-          <Input
-            placeholder="Filter emails..."
-            value={
-
-              (table.getColumn("email")?.getFilterValue() as string) ?? ""
-
-            }
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-          <Button className="bg-green-500" onClick={()=> router.push("/vendedores/add")}>Agregar reporte</Button>
-        </div>
+  
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

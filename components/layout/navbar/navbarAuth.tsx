@@ -16,9 +16,7 @@ export function NavbarAuthenticated({
     const adminLinks = [
         { href: '/vendedores/all', label: 'Vendedores' },
         { href: '/clientes/all', label: 'Clientes' },
-        { href: '/pedidos/all', label: 'Pedidos' },
         { href: '/reportes-venta/all', label: 'Reportes' },
-        { href: '/productos/all', label: 'Productos' },
 
 
 

@@ -1,4 +1,5 @@
 "use client"
+import * as React from "react"
 
 import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 
@@ -13,56 +14,28 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-import IOrder from "@/types/IOrder"
 import IUser from "@/types/IUser"
 import { ColumnDef, FilterFn} from "@tanstack/react-table"
 import Link from "next/link"
 
-const ownerFilterFn: FilterFn<IOrder> = (rows , id, filterValue) => {
-    const email = rows.original.owner.email
+const ownerFilterFn: FilterFn<IUser> = (rows , id, filterValue) => {
+    const email = rows.original.email
     return email.includes(filterValue)
     
 }
   
-export const columnsPedidos: ColumnDef<IOrder>[] = [
+export const columnsClientes: ColumnDef<IUser>[] = [
     {
         accessorKey: "id",
         header: "ID",
     },
     {
-        accessorKey: "status",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Status
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-        cell: ({ row }) => {
-            const status : IOrder["status"] = row.getValue("status")
-            return (
-                <div className="flex items-center">
-                    <span
-                        className={`h-2 w-2 rounded-full mr-2 ${
-                            status === "cancelado"
-                                ? "bg-red-500"
-                                : status === "entregado"
-                                    ? "bg-green-500"
-                                    : "bg-yellow-500"
-                        }`}
-                    />
-                    {status}
-                </div>
-            )
-        }
+        accessorKey: "privilege",
+        header: "Privilege"
     },
     {
         id: "email",
-        accessorKey: "owner",
+        accessorKey: "email",
         header: ({ column }) => {
             return (
                 <Button
@@ -75,8 +48,7 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
             )
         },
         cell: ({ row }) => {
-            const user = row.getValue("email") as IUser
-            return user.email
+            return row.getValue("email");
 
         },
         filterFn: ownerFilterFn,
@@ -84,40 +56,37 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
     },
 
     {
-        accessorKey: "created_at",
+        accessorKey: "first_name",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Fecha
+                    Nombre
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
-        },
-        cell: ({ row }) => {
-            const date = row.original.created_at
-            return new Date(date).toLocaleDateString("es-ES", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-            })
-
-            
-
         }
-
-
     },
-
+    {
+        accessorKey: "last_name",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Apellidos
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        }
+    },
     {
         id: "actions",
         cell: ({ row }) => {
-            const order: IOrder = row.original
-
+            const user: IUser = row.original
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -128,22 +97,16 @@ export const columnsPedidos: ColumnDef<IOrder>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(String(order.id))}
-                        >
-                            Copiar ID de orden
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-
-                        <DropdownMenuItem>
-                            <Link href={`/pedidos/${order.id}`}>
-                                Ver detalles del pedido
-                            </Link>
+                        <DropdownMenuItem
+                            onClick={() => navigator.clipboard.writeText(String(user.id))}
+                        >
+                            Copiar ID del cliente
                         </DropdownMenuItem>
+                        
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
         },
     },
 ]
-
