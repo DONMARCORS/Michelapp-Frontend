@@ -17,6 +17,8 @@ export function NavbarAuthenticated({
         { href: '/vendedores/all', label: 'Vendedores' },
         { href: '/clientes/all', label: 'Clientes' },
         { href: '/reportes-venta/all', label: 'Reportes' },
+        { href: '/productos/all', label: 'Productos' },
+
 
 
 
