@@ -265,6 +265,26 @@ class FastAPIClient {
         return this.apiClient.delete(`/clientes/${client_id}/${client_pwd}`);
     }
 
+    
+    /* ----- API Operations SALE-REPORTS ----- */
+    getAllReports() {
+        return this.apiClient.get('/reporte-venta/all_report');
+    }
+
+    createReport(values){
+        // create vendedorData with only the values that are not null or undefined
+        const reportData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
+        //reportData["privilege"] = 2;
+        return this.apiClient.post('/reporte-venta/make_report', reportData).then(
+            (resp) => {
+                return resp.data;
+            });
+    }
 }
 
 
