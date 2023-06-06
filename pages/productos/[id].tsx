@@ -18,8 +18,8 @@ const Producto = () => {
 
     const getProduct = async () => {
         try {
-            const response = await client.getAllProducts();
-            const products: IProduct[] = response.data.results;
+            const response = await client.getProducts();
+            const products: IProduct[] = response.results;
 
             // Search for the product with the id that we get from the router
             const found = products.find((product) => product.id == parseInt(id));
@@ -33,10 +33,8 @@ const Producto = () => {
     };
 
     useEffect(() => {
-        if (id) {
             getProduct();
-        }
-    }, [id]);
+    }, []);
 
     return (
         <div>
@@ -44,11 +42,12 @@ const Producto = () => {
                 {loading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
                 {!loading && product && (
                     <div className="flex flex-col gap-4 justify-center items-center mt-3">
-                        <FormProducto product={product} className="w-1/2" />
+                        <FormProducto producto={product} className="w-1/2" />
                     </div>
                 )}
             </LayoutAuthenticated>
         </div>
     );
+}
 
 export default Producto;

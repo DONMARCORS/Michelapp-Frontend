@@ -17,10 +17,6 @@ import IProduct from "@/types/IProduct"
 import { ColumnDef, FilterFn} from "@tanstack/react-table"
 import Link from "next/link"
 
-const ownerFilterFn: FilterFn<IProduct> = (rows , id, filterValue) => {
-    const idProduct = rows.original.id
-    return idProduct.includes(filterValue)
-}
 
 export const columnsProductos: ColumnDef<IProduct>[] = [
     {
@@ -42,6 +38,11 @@ export const columnsProductos: ColumnDef<IProduct>[] = [
         }
     },
     {
+        accessorKey: "description",
+        header: "Descripción",
+
+    },
+    {
         accessorKey: "price",
         header: ({ column }) => {
             return (
@@ -53,10 +54,20 @@ export const columnsProductos: ColumnDef<IProduct>[] = [
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
+        },
+        cell: ({ row }) => {
+            const value = row.original.price
+            return (
+                <div className="flex items-center">
+                    <span className="mr-2">$</span>
+                    {value}
+                </div>
+            )
         }
+
     },
     {
-        accessorKey: "stock",
+        accessorKey: "quantity",
         header: ({ column }) => {
             return (
                 <Button
@@ -84,18 +95,14 @@ export const columnsProductos: ColumnDef<IProduct>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem>
-                            <Link href={`/admin/productos/${product.id}`}>
-                                <a className="flex items-center">
+                            <Link href={`/productos/${product.id}`}>
                                     <span className="mr-2">Editar</span>
-                                </a>
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <Link href={`/admin/productos/${product.id}`}>
-                                <a className="flex items-center">
+                            <Link href={`/productos/${product.id}`}>
                                     <span className="mr-2">Eliminar</span>
-                                </a>
                             </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

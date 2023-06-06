@@ -25,15 +25,18 @@ import {
 } from "@/components/ui/select"
 import { useForm } from "react-hook-form"
 
-import <IProduct></IProduct> from "@/types/IUser"
+import IProduct from "@/types/IProduct"
 import { Badge } from "../ui/badge";
 
 import FastAPIClient from "@/client/client"
 import { Input } from "../ui/input"
 
-// Validaciones del formulario
+// Validaciones del formulario IPorduct
 const formSchema = z.object({
-    email: z.string().email().min(1).max(255)
+    name: z.string().min(1).max(255),
+    description: z.string().min(1).max(255),
+    price: z.any().optional(),
+    quantity: z.any().optional(),
 })
 
 interface FormProductoProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -55,30 +58,40 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
         // ✅ This will be type-safe and validated.
         console.log(values)
         try {
-            const response = await client.post<IProduct>("/products/", values)
+            const response = await client.updateProduct(producto.id, values)
             console.log(response)
-            router.push("/productos")
+            router.push("/productos/all")
         } catch (error) {
             console.log(error)
         }
     }
 
-    function deleteProduct() {
+    async function deleteProduct() {
         try {
-            const response = await client.delete<IProduct>("/products/", values)
+            const response = await client.deleteProduct(producto.id)
             console.log(response)
-            router.push("/productos")
+            router.push("/productos/all")
         } catch (error) {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        form.reset({
+            name: producto.name,
+            description: producto.description,
+            price: producto.price,
+            quantity: producto.quantity,
+        })
+    }, [producto])
+
 
     return (
         <>
         <Card className={className}>
             <CardHeader>
                 <CardTitle>Producto</CardTitle>
-                <CardDescription>{'Descripción: ${producto.descripcion}'}</CardDescription>
+                <CardDescription>{'Edita la información del producto'}</CardDescription>
                 <Button className="ml-auto" variant="destructive" onClick={deleteProduct}>
                     Eliminar producto
                 </Button>
@@ -88,8 +101,8 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
-                        name="nombre"
-                        render={({ field, formState }) => (
+                        name="name"
+                        render={({ field}) => (
                             <FormItem>
                                 <FormLabel>Nombre del producto</FormLabel>
                                 <FormDescription>
@@ -102,26 +115,11 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
                             </FormItem>
                         )}
                     />
+
                     <FormField
                         control={form.control}
-                        name="id"
-                        render={({ field, formState }) => (
-                            <FormItem>
-                                <FormLabel>ID</FormLabel>
-                                <FormDescription>
-                                    Escribe el ID del producto:
-                                </FormDescription>
-                                <FormControl>
-                                    <Input placeholder="123" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="descripcion"
-                        render={({ field, formState }) => (
+                        name="description"
+                        render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Descripción</FormLabel>
                                 <FormDescription>
@@ -136,8 +134,8 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
                     />
                     <FormField
                         control={form.control}
-                        name="precio"
-                        render={({ field, formState }) => (
+                        name="price"
+                        render={({ field}) => (
                             <FormItem>
                                 <FormLabel>Precio</FormLabel>
                                 <FormDescription>
@@ -152,8 +150,8 @@ const FormProducto: React.FC<FormProductoProps> = ({ className, producto }) => {
                     />
                     <FormField
                         control={form.control}
-                        name="cantidad"
-                        render={({ field, formState }) => (
+                        name="quantity"
+                        render={({ field}) => (
                             <FormItem>
                                 <FormLabel>Cantidad</FormLabel>
                                 <FormDescription>

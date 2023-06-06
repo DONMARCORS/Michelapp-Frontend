@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import LayoutAuthenticated from '@/components/layout/layoutAuthenticated';
-import { DataTable } from '@/components/ui/data-table-vendedores';
+import { DataTable } from '@/components/ui/data-table-productos';
 import { columnsProductos } from '@/components/columns/columnsProductos';
 import FastAPIClient from '@/client/client';
 import { Icons } from '@/components/icons';
@@ -21,8 +21,8 @@ const Productos = () => {
     const getProducts = async () => {
         try {
             const response = await client.getProducts();
-            console.log(response.data.results);
-            setProducts(response.data.results);
+            console.log(response.results);
+            setProducts(response.results);
 
         } catch (error) {
             console.log(error);

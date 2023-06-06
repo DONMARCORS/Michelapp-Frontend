@@ -139,14 +139,14 @@ class FastAPIClient {
     /* ----- API Operations PRODUCTS ----- */
     // 1 - Get all products
     getProducts() {
-        return this.apiClient.get(`/products`).then(({ data }) => {
+        return this.apiClient.get(`/product`).then(({ data }) => {
             return data;
         });
     }
 
     // 2 - Delete product
     deleteProduct(productId){
-        return this.apiClient.delete(`/products/${productId}`);
+        return this.apiClient.delete(`/product/${productId}`);
     }
 
     // 3 - Update product
@@ -160,23 +160,23 @@ class FastAPIClient {
         }, {});
 
         console.log(productData);
-        return this.apiClient.put(`/products/${productId}`, productData).then(
+        return this.apiClient.put(`/product/${productId}`, productData).then(
             (resp) => {
                 return resp.data;
             });
     }
 
     // 4 - Create product
-    createProduct(name, id, description, price, stock){
-        const productData = {
-            name,
-            id,
-            description,
-            price,
-            stock
-        };
+    createProduct(values){
+        // create productData with only the values that are not null or undefined
+        const productData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== undefined) {
+                acc[key] = values[key];
+            }
+            return acc;
+        }, {});
 
-        return this.apiClient.post('/products', productData).then(
+        return this.apiClient.post('/product', productData).then(
             (resp) => {
                 return resp.data;
             });

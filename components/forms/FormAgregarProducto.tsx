@@ -37,8 +37,8 @@ const formSchema = z.object({
     name: z.string().min(1).max(255),
     id: z.string().min(1).max(255),
     description: z.string().min(1).max(255),
-    price: z.number().min(1),
-    stock: z.number().min(1),
+    price:  z.string().min(1).max(255),
+    quantity:  z.string().min(1).max(255),
 })
 
 interface FormAgregarProductoProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -48,6 +48,7 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
 
     const router = useRouter()
     const product = router.query.id
+    const client = new FastAPIClient({})
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
@@ -56,11 +57,17 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
 
     // 2. Define a submit handler.
     async function onSubmit(data: z.infer<typeof formSchema>) {
-        const product: IProduct =  
-        await client.post<IProduct>("/products/", data)
-        console.log(product)
+        const newData = {
+            ...data,
+            id : parseInt(data.id),
+            price: parseFloat(data.price),
+            quantity: parseInt(data.quantity),
+        };
         try{
-            router.push("/productos")
+            const product: IProduct =  await client.createProduct(newData)
+            console.log(product)
+
+            router.push("/productos/all")
         } catch(error){
             console.log(error)
         }
@@ -80,7 +87,7 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     name="name"
-                    render={({ field, formState }) => (
+                    render={({ field}) => (
                         <FormItem>
                             <FormLabel>Nombre del producto:</FormLabel>
                             <FormControl>
@@ -91,7 +98,7 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
                 />
                 <FormField
                     name="id"
-                    render={({ field, formState }) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>ID del producto:</FormLabel>
                             <FormControl>
@@ -102,7 +109,7 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
                 />
                 <FormField
                     name="description"
-                    render={({ field, formState }) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Descripción del producto:</FormLabel>
                             <FormControl>
@@ -113,7 +120,7 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
                 />
                 <FormField
                     name="price"
-                    render={({ field, formState }) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Precio</FormLabel>
                             <FormControl>
@@ -123,8 +130,8 @@ const FormAgregarProducto: React.FC<FormAgregarProductoProps> = ({ className }) 
                     )}
                 />
                 <FormField
-                    name="stock"
-                    render={({ field, formState }) => (
+                    name="quantity"
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Unidades disponibles del producto:</FormLabel>
                             <FormControl>
