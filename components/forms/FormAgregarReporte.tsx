@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useRouter } from "next/router"
@@ -11,24 +11,13 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 import { useForm } from "react-hook-form"
 
-import IUser from "@/types/IUser"
-import { Badge } from "../ui/badge";
-import { CalendarDays } from "lucide-react";
 
 import FastAPIClient from "@/client/client"
 import { Input } from "../ui/input"
@@ -46,7 +35,6 @@ const formSchema = z.object({
 
 
 interface FormAgregarReporteProps extends React.HTMLAttributes<HTMLDivElement> {
-    reporte: IReport;
 }
 
 const FormAgregarReporte: React.FC<FormAgregarReporteProps> = ({ className }) => {

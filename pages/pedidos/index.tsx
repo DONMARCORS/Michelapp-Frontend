@@ -22,6 +22,16 @@ const Pedidos = () => {
   const fetchOrders = async () => {
     try {
       const response = await client.getOwnOrders();
+      // we first order by status, status = realizado must be first
+      response.results.sort((a:IOrder, b:IOrder) => {
+        if (a.status === "realizado") {
+          return -1;
+        }
+        if (b.status === "realizado") {
+          return 1;
+        }
+        return 0;
+      });
       setOrders(response.results);
     }
     catch (error) {

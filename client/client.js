@@ -228,6 +228,14 @@ class FastAPIClient {
     }
 
     /* ----- API Operations CLIENTS ----- */
+
+    getAllClients() {
+        return this.apiClient.get(`/clientes`).then(({ data }) => {
+            return data;
+        });
+    }
+    
+
     updateClientEmail(client_id, email_c) {
         const updateData = {
             email: email_c,

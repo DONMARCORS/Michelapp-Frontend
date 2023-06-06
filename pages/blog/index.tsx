@@ -2,13 +2,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image"
 
 import Layout from '@/components/layout/layout'
 import FastAPIClient from "@/client/client";
 import IUser from "@/types/IUser";
 import { Icons } from '@/components/icons';
-import { Main } from 'next/document';
 
 
 // Page content, accessible to all users. We wrap in layout component to add navbar and footer

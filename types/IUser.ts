@@ -5,6 +5,7 @@ interface IUser {
     email: string;
     birthday: string;
     privilege: number;
+    address: string;
 }
 
 
